@@ -5,10 +5,6 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import cropRoutes from './routes/crops.js';
 import authRoutes from './routes/auth.js';
-import userRoutes from './routes/users.js';
-
-// Routes
-import authRoutes from './routes/auth.js';
 
 dotenv.config();
 

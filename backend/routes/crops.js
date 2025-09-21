@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAllCrops, addCrop, updateCrop, deleteCrop } from '../controllers/cropController.js';
-import { authenticateUser } from '../middleware/auth.js';
+import authenticateUser from '../middleware/auth.js';
 
 const router = express.Router();
 
