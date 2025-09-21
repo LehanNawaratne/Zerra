@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import cropRoutes from './routes/crops.js';
 import authRoutes from './routes/auth.js';
+import analyticsRoutes from './routes/analytics.js';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 // Routes
 app.use('/api/v1/crops', cropRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/analytics', analyticsRoutes);
 
 
 // Basic route
