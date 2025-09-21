@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import apiRoutes from './routes/api.js';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// API Routes
+app.use('/api', apiRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
