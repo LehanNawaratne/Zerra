@@ -7,6 +7,9 @@ import cropRoutes from './routes/crops.js';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 
+// Routes
+import authRoutes from './routes/auth.js';
+
 dotenv.config();
 
 const app = express();
@@ -20,6 +23,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/v1/crops', cropRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 
 // Basic route
