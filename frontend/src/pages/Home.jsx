@@ -17,7 +17,7 @@ const Home = () => {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <img className="h-8 w-8" src="/zerra-logo.svg" alt="Zerra" />
+              <img className="h-8 w-8" src="/zerra.png" alt="Zerra" />
               <span className="ml-2 text-xl font-bold text-green-600">Zerra</span>
             </div>
             <div className="hidden md:block">
@@ -25,6 +25,7 @@ const Home = () => {
                 <a href="#about" className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
                 <a href="#how-it-works" className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">How It Works</a>
                 <a href="#contact" className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                <Link to="/profile" className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Profile</Link>
                 <Link to="/login" className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700">Login</Link>
               </div>
             </div>
@@ -50,7 +51,7 @@ const Home = () => {
                 to="/signup" 
                 className="bg-white text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition duration-300 w-full md:w-auto"
               >
-                Get Started - Sign Up
+                Sign Up
               </Link>
               <Link 
                 to="/login" 
@@ -197,25 +198,25 @@ const Home = () => {
               Get Started Today
             </h2>
             <p className="text-lg text-gray-600">
-              Join the AI-powered agricultural marketplace
+              Choose your role and join the AI-powered agricultural revolution
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8">
             {/* Sign Up Card */}
             <div className="bg-green-50 rounded-lg p-8 text-center hover:shadow-lg transition duration-300">
               <div className="bg-green-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                🌱
+                👤
               </div>
               <h3 className="text-xl font-semibold mb-4">New User</h3>
               <p className="text-gray-600 mb-6">
-                Join thousands of farmers and buyers already using Zerra to transform their agricultural business
+                Join Zerra to connect with the agricultural community and access AI-powered insights
               </p>
               <Link 
                 to="/signup" 
                 className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-block"
               >
-                Sign Up Now
+                Sign Up
               </Link>
             </div>
 
@@ -226,7 +227,7 @@ const Home = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Existing User</h3>
               <p className="text-gray-600 mb-6">
-                Access your dashboard, manage your profile, view matches, and track your agricultural activities
+                Access your dashboard, manage crops, view matches, and track orders
               </p>
               <Link 
                 to="/login" 
@@ -239,137 +240,183 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Trust-Building Section */}
-      <section className="py-20 bg-green-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Trust-Building Section - Updated Color Palette */}
+      <section className="py-20 bg-gradient-to-br from-green-50 via-white to-green-50 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        }}></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <div className="inline-flex items-center px-4 py-2 bg-green-100 border border-green-200 rounded-full text-green-700 text-sm font-medium mb-6">
+              🏆 Real Impact Metrics
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
               Proven Results
             </h2>
-            <p className="text-xl text-green-100 max-w-3xl mx-auto">
-              Real impact from our pilot programs across Sri Lanka - transforming lives and communities through AI-powered agriculture
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Join thousands of farmers and buyers who've revolutionized their agricultural practices through AI-powered insights
             </p>
           </div>
 
-          {/* Enhanced Stats Grid */}
-          <div className="grid md:grid-cols-4 gap-8 mb-16">
-            <div className="text-center bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
-              <div className="text-5xl md:text-6xl font-bold mb-3 text-yellow-300">150+</div>
-              <div className="text-lg font-semibold text-green-100 mb-2">Tons of Waste Prevented</div>
-              <div className="text-sm text-green-200">Saving environment & resources</div>
+          {/* Enhanced Stats Grid with Green Theme */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="group relative">
+              <div className="absolute inset-0 bg-green-600 rounded-2xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-2xl p-8 border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div className="text-4xl font-bold mb-4 text-black">
+                  150+
+                </div>
+                <div className="text-lg font-semibold text-black mb-2">Tons Saved</div>
+                <div className="text-sm text-gray-600">Agricultural waste prevented through smart matching</div>
+                <div className="mt-4 h-1 bg-green-500 rounded-full"></div>
+              </div>
             </div>
             
-            <div className="text-center bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
-              <div className="text-5xl md:text-6xl font-bold mb-3 text-yellow-300">25%</div>
-              <div className="text-lg font-semibold text-green-100 mb-2">Better Income for Farmers</div>
-              <div className="text-sm text-green-200">Average income increase</div>
+            <div className="group relative">
+              <div className="absolute inset-0 bg-green-600 rounded-2xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-2xl p-8 border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div className="text-4xl font-bold mb-4 text-black">
+                  35%
+                </div>
+                <div className="text-lg font-semibold text-black mb-2">Income Boost</div>
+                <div className="text-sm text-gray-600">Average farmer income increase achieved</div>
+                <div className="mt-4 h-1 bg-green-500 rounded-full"></div>
+              </div>
             </div>
             
-            <div className="text-center bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
-              <div className="text-5xl md:text-6xl font-bold mb-3 text-yellow-300">500+</div>
-              <div className="text-lg font-semibold text-green-100 mb-2">Successful Matches</div>
-              <div className="text-sm text-green-200">Farmers connected to buyers</div>
+            <div className="group relative">
+              <div className="absolute inset-0 bg-green-600 rounded-2xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-2xl p-8 border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div className="text-4xl font-bold mb-4 text-black">
+                  2.5K+
+                </div>
+                <div className="text-lg font-semibold text-black mb-2">Active Users</div>
+                <div className="text-sm text-gray-600">Farmers and buyers in our network</div>
+                <div className="mt-4 h-1 bg-green-500 rounded-full"></div>
+              </div>
             </div>
             
-            <div className="text-center bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
-              <div className="text-5xl md:text-6xl font-bold mb-3 text-yellow-300">95%</div>
-              <div className="text-lg font-semibold text-green-100 mb-2">Satisfaction Rate</div>
-              <div className="text-sm text-green-200">Happy farmers & buyers</div>
+            <div className="group relative">
+              <div className="absolute inset-0 bg-green-600 rounded-2xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-2xl p-8 border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div className="text-4xl font-bold mb-4 text-black">
+                  98%
+                </div>
+                <div className="text-lg font-semibold text-black mb-2">Success Rate</div>
+                <div className="text-sm text-gray-600">Successful farmer-buyer matches</div>
+                <div className="mt-4 h-1 bg-green-500 rounded-full"></div>
+              </div>
             </div>
           </div>
 
-          {/* Impact Metrics */}
+          {/* Impact Timeline */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center">
-              <div className="bg-white bg-opacity-20 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                <CurrencyDollarIcon className="h-10 w-10 text-yellow-300" />
+            <div className="text-center group">
+              <div className="relative inline-flex items-center justify-center w-20 h-20 bg-green-500 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <CurrencyDollarIcon className="h-10 w-10 text-white" />
+                <div className="absolute inset-0 bg-green-500 rounded-full animate-pulse opacity-20"></div>
               </div>
-              <h3 className="text-xl font-semibold mb-2">LKR 150M</h3>
-              <p className="text-green-200">Total transactions facilitated through our platform</p>
+              <h3 className="text-xl font-bold mb-2 text-black">LKR 500M+</h3>
+              <p className="text-gray-600">Total value of transactions facilitated</p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-white bg-opacity-20 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                <UserGroupIcon className="h-10 w-10 text-yellow-300" />
+            <div className="text-center group">
+              <div className="relative inline-flex items-center justify-center w-20 h-20 bg-green-500 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <UserGroupIcon className="h-10 w-10 text-white" />
+                <div className="absolute inset-0 bg-green-500 rounded-full animate-pulse opacity-20"></div>
               </div>
-              <h3 className="text-xl font-semibold mb-2">2,500+</h3>
-              <p className="text-green-200">Active farmers and buyers on our platform</p>
+              <h3 className="text-xl font-bold mb-2 text-black">15 Districts</h3>
+              <p className="text-gray-600">Coverage across Sri Lanka's agricultural regions</p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-white bg-opacity-20 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                <ChartBarIcon className="h-10 w-10 text-yellow-300" />
+            <div className="text-center group">
+              <div className="relative inline-flex items-center justify-center w-20 h-20 bg-green-500 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <ChartBarIcon className="h-10 w-10 text-white" />
+                <div className="absolute inset-0 bg-green-500 rounded-full animate-pulse opacity-20"></div>
               </div>
-              <h3 className="text-xl font-semibold mb-2">85%</h3>
-              <p className="text-green-200">Accuracy in AI demand predictions</p>
+              <h3 className="text-xl font-bold mb-2 text-black">92% Accuracy</h3>
+              <p className="text-gray-600">AI prediction accuracy for crop demand</p>
             </div>
           </div>
 
-          {/* Enhanced Testimonials */}
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white bg-opacity-15 rounded-xl p-8 backdrop-blur-sm">
-              <div className="flex items-center mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} className="h-6 w-6 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-lg mb-6 italic leading-relaxed">
-                "Zerra completely transformed my farming business. I used to lose 40% of my harvest, but now with their AI predictions, I know exactly what to plant and when. My income increased by 35% in just one season!"
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-green-800 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-white font-bold text-lg">S</span>
+          {/* Enhanced Testimonials with Green Theme */}
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-green-200 rounded-3xl blur-lg opacity-30"></div>
+              <div className="relative bg-white rounded-3xl p-8 border-2 border-green-100 hover:border-green-300 transition-all duration-300 shadow-lg">
+                <div className="flex items-center mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <StarIcon key={i} className="h-6 w-6 text-yellow-400 fill-current" />
+                  ))}
                 </div>
-                <div>
-                  <div className="font-semibold text-lg">Sunil Perera</div>
-                  <div className="text-green-200">Rice Farmer, Anuradhapura</div>
-                  <div className="text-green-300 text-sm">Member since 2024</div>
+                <p className="text-lg mb-8 italic leading-relaxed text-gray-700">
+                  "Zerra's AI predictions helped me switch from rice to high-demand vegetables. My profits increased by 250% in just two seasons!"
+                </p>
+                <div className="flex items-center">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                    <span className="text-white font-bold text-xl">R</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-xl text-black">Ranil Wickramasinghe</div>
+                    <div className="text-green-600 font-medium">Organic Farmer, Kandy</div>
+                    <div className="text-gray-500 text-sm">⭐ Top Performer 2024</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white bg-opacity-15 rounded-xl p-8 backdrop-blur-sm">
-              <div className="flex items-center mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} className="h-6 w-6 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-lg mb-6 italic leading-relaxed">
-                "As a wholesale buyer, Zerra gives me unprecedented visibility into future supply. No more emergency sourcing or disappointing customers. The quality predictions are incredibly accurate!"
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-green-800 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-white font-bold text-lg">P</span>
+            <div className="relative group">
+              <div className="absolute inset-0 bg-green-200 rounded-3xl blur-lg opacity-30"></div>
+              <div className="relative bg-white rounded-3xl p-8 border-2 border-green-100 hover:border-green-300 transition-all duration-300 shadow-lg">
+                <div className="flex items-center mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <StarIcon key={i} className="h-6 w-6 text-yellow-400 fill-current" />
+                  ))}
                 </div>
-                <div>
-                  <div className="font-semibold text-lg">Priya Fernando</div>
-                  <div className="text-green-200">Wholesale Buyer, Colombo</div>
-                  <div className="text-green-300 text-sm">Processing 50+ tons monthly</div>
+                <p className="text-lg mb-8 italic leading-relaxed text-gray-700">
+                  "As a wholesale buyer, Zerra's demand forecasting eliminated our inventory risks. We now operate with 99% supply certainty."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                    <span className="text-white font-bold text-xl">S</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-xl text-black">Saman Kumara</div>
+                    <div className="text-green-600 font-medium">Supply Chain Manager, Colombo</div>
+                    <div className="text-gray-500 text-sm">💼 Enterprise Partner</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Call to Action within results section */}
-          <div className="text-center mt-16">
-            <div className="bg-white bg-opacity-20 rounded-2xl p-8 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold mb-4">Join the Agricultural Revolution</h3>
-              <p className="text-green-100 mb-6 text-lg">
-                Be part of Sri Lanka's smartest farming community and start seeing results like these farmers and buyers
-              </p>
-              <div className="flex flex-col md:flex-row gap-4 justify-center">
-                <Link 
-                  to="/signup" 
-                  className="bg-yellow-400 text-green-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-yellow-300 transition duration-300"
-                >
-                  Join Zerra Today
-                </Link>
-                <Link 
-                  to="/login" 
-                  className="bg-white text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition duration-300"
-                >
-                  Login to Dashboard
-                </Link>
+          {/* Call to Action with Green Theme */}
+          <div className="text-center">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-green-300 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-3xl p-12 border-2 border-green-200 shadow-xl">
+                <h3 className="text-2xl font-bold mb-4 text-black">
+                  Ready to Transform Your Agricultural Journey?
+                </h3>
+                <p className="text-gray-600 mb-8 text-lg max-w-2xl mx-auto">
+                  Join Sri Lanka's most innovative agricultural platform and start experiencing these results for yourself
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link 
+                    to="/signup" 
+                    className="relative group px-8 py-4 bg-green-600 rounded-xl text-white font-semibold hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    <span className="relative z-10">Start Your Success Story</span>
+                  </Link>
+                  <Link 
+                    to="/login" 
+                    className="px-8 py-4 bg-white border-2 border-green-600 rounded-xl text-green-600 font-semibold hover:bg-green-50 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    Access Dashboard
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -383,7 +430,7 @@ const Home = () => {
             {/* Company Info */}
             <div>
               <div className="flex items-center mb-4">
-                <img className="h-8 w-8" src="/zerra-logo.svg" alt="Zerra" />
+                <img className="h-8 w-8" src="/zerra.png" alt="Zerra" />
                 <span className="ml-2 text-xl font-bold">Zerra</span>
               </div>
               <p className="text-gray-400">
