@@ -3,6 +3,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import cropRoutes from './routes/crops.js';
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/users.js';
 
 // Routes
 import authRoutes from './routes/auth.js';
@@ -19,7 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
+app.use('/api/v1/crops', cropRoutes);
 app.use('/api/v1/auth', authRoutes);
+
 
 // Basic route
 app.get('/', (req, res) => {
