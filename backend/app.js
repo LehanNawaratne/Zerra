@@ -4,6 +4,9 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
+// Routes
+import authRoutes from './routes/auth.js';
+
 dotenv.config();
 
 const app = express();
@@ -14,6 +17,9 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Routes
+app.use('/api/v1/auth', authRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
