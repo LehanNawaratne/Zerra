@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ app.get('/', (req, res) => {
     status: 'Connected to MongoDB' 
   });
 });
+
+// API Routes
+app.use('/api/auth', authRoutes);
 
 
 export default app;

@@ -1,6 +1,6 @@
-const express = require('express');
-const { register, login, getProfile, updateProfile } = require('../controllers/authController');
-const { protect } = require('../middleware/auth');
+import express from 'express';
+import { register, login, getProfile, updateProfile } from '../controllers/authController.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.use(protect); // All routes after this middleware are protected
 router.get('/profile', getProfile);
 router.patch('/profile', updateProfile);
 
-module.exports = router;
+export default router;
