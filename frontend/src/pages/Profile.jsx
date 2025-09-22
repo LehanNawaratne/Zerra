@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   UserIcon, 
   MapPinIcon, 
@@ -16,6 +16,11 @@ import {
 } from '@heroicons/react/24/outline';
 
 const Profile = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    document.title = 'Zerra | Profile';
+  }, []);
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     firstName: 'Ranil',
@@ -296,19 +301,31 @@ const Profile = () => {
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button className="flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300">
+                <button 
+                  onClick={() => navigate('/marketplace')}
+                  className="flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
+                >
                   <ChartBarIcon className="h-5 w-5" />
-                  <span>Create New Listing</span>
+                  <span>Browse Marketplace</span>
                 </button>
-                <button className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                <button 
+                  onClick={() => navigate('/marketplace')}
+                  className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+                >
                   <TruckIcon className="h-5 w-5" />
-                  <span>Browse Matches</span>
+                  <span>Find Buyers</span>
                 </button>
-                <button className="flex items-center justify-center space-x-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+                <button 
+                  onClick={() => navigate('/view-all-activity')}
+                  className="flex items-center justify-center space-x-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-300"
+                >
                   <CurrencyDollarIcon className="h-5 w-5" />
-                  <span>View Earnings</span>
+                  <span>View Activity</span>
                 </button>
-                <button className="flex items-center justify-center space-x-2 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition duration-300">
+                <button 
+                  onClick={() => alert('Account settings feature coming soon!')}
+                  className="flex items-center justify-center space-x-2 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition duration-300"
+                >
                   <UserIcon className="h-5 w-5" />
                   <span>Account Settings</span>
                 </button>

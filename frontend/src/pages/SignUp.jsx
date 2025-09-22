@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { EyeIcon, EyeSlashIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const SignUp = () => {
+  useEffect(() => {
+    document.title = 'Zerra | Sign Up';
+  }, []);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
