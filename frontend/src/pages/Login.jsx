@@ -39,7 +39,7 @@ const Login = () => {
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link to="/" className="flex justify-center items-center">
-          <img className="h-12 w-12" src="/zerra2.png" alt="Zerra" />
+          <img className="h-12 w-12" src="/zerra.png" alt="Zerra" />
           <span className="ml-2 text-2xl font-bold text-green-600">Zerra</span>
         </Link>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">

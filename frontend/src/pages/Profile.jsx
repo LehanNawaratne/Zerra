@@ -98,7 +98,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-30 bg-white shadow-sm">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center">
@@ -217,6 +217,29 @@ const Profile = () => {
                     </button>
                   )}
                 </div>
+
+                {/* Quick Actions under profile */}
+                {!isEditing && (
+                  <div className="mt-6 space-y-3">
+                    <h3 className="text-sm font-medium text-gray-900 text-center">Quick Actions</h3>
+                    <div className="space-y-2">
+                      <button 
+                        onClick={() => navigate('/view-all-activity')}
+                        className="w-full flex items-center justify-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 transition duration-300"
+                      >
+                        <CurrencyDollarIcon className="h-4 w-4" />
+                        <span>View All Activity</span>
+                      </button>
+                      <button 
+                        onClick={() => alert('Account settings feature coming soon!')}
+                        className="w-full flex items-center justify-center space-x-2 bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition duration-300"
+                      >
+                        <UserIcon className="h-4 w-4" />
+                        <span>Account Settings</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -291,44 +314,114 @@ const Profile = () => {
                 ))}
               </div>
               <div className="mt-6 text-center">
-                <button className="text-green-600 hover:text-green-700 font-medium text-sm">
+                <button 
+                  onClick={() => navigate('/view-all-activity')}
+                  className="text-green-600 hover:text-green-700 font-medium text-sm"
+                >
                   View All Activity →
                 </button>
               </div>
             </div>
 
-            {/* Quick Actions */}
+            {/* Account Settings */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button 
-                  onClick={() => navigate('/marketplace')}
-                  className="flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
-                >
-                  <ChartBarIcon className="h-5 w-5" />
-                  <span>Browse Marketplace</span>
-                </button>
-                <button 
-                  onClick={() => navigate('/marketplace')}
-                  className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-                >
-                  <TruckIcon className="h-5 w-5" />
-                  <span>Find Buyers</span>
-                </button>
-                <button 
-                  onClick={() => navigate('/view-all-activity')}
-                  className="flex items-center justify-center space-x-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-300"
-                >
-                  <CurrencyDollarIcon className="h-5 w-5" />
-                  <span>View Activity</span>
-                </button>
-                <button 
-                  onClick={() => alert('Account settings feature coming soon!')}
-                  className="flex items-center justify-center space-x-2 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition duration-300"
-                >
-                  <UserIcon className="h-5 w-5" />
-                  <span>Account Settings</span>
-                </button>
+              <h2 className="text-xl font-bold text-gray-900 mb-6">Account Settings</h2>
+              <div className="space-y-4">
+                {/* Privacy Settings */}
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Privacy & Security</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Profile Visibility</p>
+                        <p className="text-sm text-gray-500">Control who can see your profile</p>
+                      </div>
+                      <select className="px-3 py-1 border border-gray-300 rounded-md text-sm">
+                        <option>Public</option>
+                        <option>Verified Buyers Only</option>
+                        <option>Private</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Two-Factor Authentication</p>
+                        <p className="text-sm text-gray-500">Add extra security to your account</p>
+                      </div>
+                      <button className="px-3 py-1 bg-green-600 text-white rounded-md text-sm hover:bg-green-700">
+                        Enable
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Notification Settings */}
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Notifications</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Email Notifications</p>
+                        <p className="text-sm text-gray-500">Receive updates via email</p>
+                      </div>
+                      <input type="checkbox" defaultChecked className="h-4 w-4 text-green-600 rounded" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">SMS Alerts</p>
+                        <p className="text-sm text-gray-500">Get notified about urgent matters</p>
+                      </div>
+                      <input type="checkbox" defaultChecked className="h-4 w-4 text-green-600 rounded" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Price Alerts</p>
+                        <p className="text-sm text-gray-500">Market price change notifications</p>
+                      </div>
+                      <input type="checkbox" defaultChecked className="h-4 w-4 text-green-600 rounded" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Settings */}
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Payment & Billing</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Bank Account</p>
+                        <p className="text-sm text-gray-500">**** **** **** 1234</p>
+                      </div>
+                      <button className="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                        Update
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Payment Method</p>
+                        <p className="text-sm text-gray-500">Bank Transfer</p>
+                      </div>
+                      <button className="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                        Change
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Account Actions */}
+                <div className="pt-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Account Actions</h3>
+                  <div className="space-y-2">
+                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                      Download Account Data
+                    </button>
+                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                      Export Activity History
+                    </button>
+                    <button className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md">
+                      Deactivate Account
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
