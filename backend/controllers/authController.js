@@ -1,82 +1,200 @@
-import authService from '../services/authService.js';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+
+// Generate JWT token
+const signToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  });
+};
+
+// Create and send token response
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+  
+  // Remove password from output
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user
+    }
+  });
+};
 
 // Register new user
-export const register = async (req, res) => {
+const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password, userType, location, phone } = req.body;
 
-    // Validate input
-    if (!name || !email || !password) {
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(400).json({
-        success: false,
-        message: 'Please provide name, email, and password'
+        status: 'error',
+        message: 'User with this email already exists'
       });
     }
 
-    const result = await authService.register({ name, email, password });
-
-    res.status(201).json({
-      success: true,
-      message: 'User registered successfully',
-      data: result
+    // Create new user
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      password,
+      userType,
+      location,
+      phone
     });
+
+    createSendToken(newUser, 201, res);
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message
+    console.error('Registration error:', error);
+    
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(val => val.message);
+      return res.status(400).json({
+        status: 'error',
+        message: 'Validation Error',
+        errors
+      });
+    }
+
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong during registration'
     });
   }
 };
 
 // Login user
-export const login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
+    // Check if email and password exist
     if (!email || !password) {
       return res.status(400).json({
-        success: false,
+        status: 'error',
         message: 'Please provide email and password'
       });
     }
 
-    const result = await authService.login({ email, password });
+    // Check if user exists and password is correct
+    const user = await User.findOne({ email }).select('+password');
 
-    res.status(200).json({
-      success: true,
-      message: 'Login successful',
-      data: result
-    });
+    if (!user || !(await user.correctPassword(password, user.password))) {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Incorrect email or password'
+      });
+    }
+
+    // Check if user is active
+    if (!user.isActive) {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Your account has been deactivated. Please contact support.'
+      });
+    }
+
+    createSendToken(user, 200, res);
   } catch (error) {
-    res.status(401).json({
-      success: false,
-      message: error.message
+    console.error('Login error:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong during login'
     });
   }
 };
 
-// Get user profile (protected route)
-export const getProfile = async (req, res) => {
+// Get current user profile
+const getProfile = async (req, res) => {
   try {
-    const user = await authService.getProfile(req.user._id);
+    // req.user is set by the auth middleware
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'User not found'
+      });
+    }
 
     res.status(200).json({
-      success: true,
-      data: user
+      status: 'success',
+      data: {
+        user
+      }
     });
   } catch (error) {
-    res.status(404).json({
-      success: false,
-      message: error.message
+    console.error('Get profile error:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong while fetching profile'
     });
   }
 };
 
-// Logout (for completeness, though JWT is stateless)
-export const logout = (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Logged out successfully'
-  });
+// Update user profile
+const updateProfile = async (req, res) => {
+  try {
+    const allowedFields = ['firstName', 'lastName', 'phone', 'location'];
+    const updates = {};
+
+    // Filter allowed fields
+    Object.keys(req.body).forEach(key => {
+      if (allowedFields.includes(key)) {
+        updates[key] = req.body[key];
+      }
+    });
+
+    // Add updated timestamp
+    updates.updatedAt = Date.now();
+
+    const user = await User.findByIdAndUpdate(req.user.id, updates, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'User not found'
+      });
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user
+      }
+    });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(val => val.message);
+      return res.status(400).json({
+        status: 'error',
+        message: 'Validation Error',
+        errors
+      });
+    }
+
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong while updating profile'
+    });
+  }
+};
+
+export {
+  register,
+  login,
+  getProfile,
+  updateProfile
 };

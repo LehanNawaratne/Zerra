@@ -1,15 +1,17 @@
 import express from 'express';
-import { register, login, getProfile, logout } from '../controllers/authController.js';
-import auth from '../middleware/auth.js';
+import { register, login, getProfile, updateProfile } from '../controllers/authController.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Public routes
 router.post('/register', register);
 router.post('/login', login);
-router.post('/logout', logout);
 
-// Protected routes
-router.get('/profile', auth, getProfile);
+// Protected routes (require authentication)
+router.use(protect); // All routes after this middleware are protected
+
+router.get('/profile', getProfile);
+router.patch('/profile', updateProfile);
 
 export default router;

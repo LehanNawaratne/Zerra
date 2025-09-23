@@ -1,40 +1,85 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config/env.js';
 import User from '../models/User.js';
 
-const auth = async (req, res, next) => {
+// Protect routes - verify JWT token
+const protect = async (req, res, next) => {
   try {
-    // Get token from header
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    // 1. Getting token and check if it exists
+    let token;
+    
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1];
+    }
 
     if (!token) {
       return res.status(401).json({
-        success: false,
-        message: 'Access denied. No token provided.'
+        status: 'error',
+        message: 'You are not logged in! Please log in to get access.'
       });
     }
 
-    // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET);
+    // 2. Verification of token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Get user from database
-    const user = await User.findById(decoded.userId);
-    if (!user) {
+    // 3. Check if user still exists
+    const currentUser = await User.findById(decoded.id);
+    if (!currentUser) {
       return res.status(401).json({
-        success: false,
-        message: 'Token is not valid. User not found.'
+        status: 'error',
+        message: 'The user belonging to this token does no longer exist.'
       });
     }
 
-    // Add user to request
-    req.user = user;
+    // 4. Check if user is active
+    if (!currentUser.isActive) {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Your account has been deactivated. Please contact support.'
+      });
+    }
+
+    // Grant access to protected route
+    req.user = currentUser;
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: 'Token is not valid.'
+    console.error('Auth middleware error:', error);
+    
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Invalid token. Please log in again!'
+      });
+    } else if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Your token has expired! Please log in again.'
+      });
+    }
+
+    return res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong during authentication'
     });
   }
 };
 
-export default auth;
+// Restrict to certain user types
+const restrictTo = (...userTypes) => {
+  return (req, res, next) => {
+    if (!userTypes.includes(req.user.userType)) {
+      return res.status(403).json({
+        status: 'error',
+        message: 'You do not have permission to perform this action'
+      });
+    }
+    next();
+  };
+};
+
+export {
+  protect,
+  restrictTo
+};

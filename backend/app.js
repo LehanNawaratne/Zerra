@@ -18,12 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Routes
-app.use('/api/v1/crops', cropRoutes);
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1', reservationRoutes);
-
-
 // Basic route
 app.get('/', (req, res) => {
   res.json({ 
@@ -32,5 +26,9 @@ app.get('/', (req, res) => {
   });
 });
 
+// API Routes
+app.use('/api/v1/crops', cropRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1', reservationRoutes);
 
 export default app;

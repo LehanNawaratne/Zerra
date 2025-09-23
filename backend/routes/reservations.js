@@ -6,12 +6,12 @@ import {
   getFarmerReservations, 
   updateReservationStatus 
 } from '../controllers/reservationController.js';
-import auth from '../middleware/auth.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Apply authentication to all routes
-router.use(auth);
+router.use(protect);
 
 // Buyer routes
 router.get('/crops/browse', browseCrops);           // Browse all available crops

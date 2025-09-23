@@ -2,34 +2,60 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    required: [true, 'Name is required'],
+    required: [true, 'First name is required'],
     trim: true,
-    maxlength: [50, 'Name cannot be more than 50 characters']
+    maxlength: [50, 'First name cannot be more than 50 characters']
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Last name is required'],
+    trim: true,
+    maxlength: [50, 'Last name cannot be more than 50 characters']
   },
   email: {
     type: String,
     required: [true, 'Email is required'],
     unique: true,
     lowercase: true,
-    validate: {
-      validator: function(email) {
-        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
-      },
-      message: 'Please enter a valid email'
-    }
+    match: [
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+      'Please enter a valid email'
+    ]
   },
   password: {
     type: String,
     required: [true, 'Password is required'],
-    minlength: [6, 'Password must be at least 6 characters'],
-    select: false // Don't include password in queries by default
+    minlength: [6, 'Password must be at least 6 characters long']
   },
-  role: {
+  userType: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    required: [true, 'User type is required'],
+    enum: ['farmer', 'buyer'],
+    default: 'farmer'
+  },
+  location: {
+    type: String,
+    required: [true, 'Location is required'],
+    trim: true
+  },
+  phone: {
+    type: String,
+    required: [true, 'Phone number is required'],
+    match: [/^\d{10}$/, 'Phone number must be 10 digits']
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
 }, {
   timestamps: true
@@ -37,20 +63,29 @@ const userSchema = new mongoose.Schema({
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
+  // Only hash the password if it has been modified (or is new)
   if (!this.isModified('password')) return next();
   
   try {
-    const salt = await bcrypt.genSalt(12);
-    this.password = await bcrypt.hash(this.password, salt);
+    // Hash password with cost of 12
+    const hashedPassword = await bcrypt.hash(this.password, 12);
+    this.password = hashedPassword;
     next();
   } catch (error) {
     next(error);
   }
 });
 
-// Compare password method
-userSchema.methods.comparePassword = async function(candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+// Instance method to check password
+userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+// Instance method to get user without password
+userSchema.methods.toJSON = function() {
+  const user = this.toObject();
+  delete user.password;
+  return user;
 };
 
 const User = mongoose.model('User', userSchema);

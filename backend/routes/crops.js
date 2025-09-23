@@ -1,11 +1,11 @@
 import express from 'express';
 import { getAllCrops, addCrop, updateCrop, deleteCrop } from '../controllers/cropController.js';
-import authenticateUser from '../middleware/auth.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Apply authentication to all crop routes
-router.use(authenticateUser);
+router.use(protect);
 
 // GET /crops - Get all crops (with optional status filter)
 router.get('/', getAllCrops);
